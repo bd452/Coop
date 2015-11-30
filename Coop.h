@@ -1,5 +1,5 @@
-#ifndef CCLASS_H
-#define CCLASS_H
+#ifndef COOP_H
+#define COOP_H
 
 #include <stdio.h>
 #include <stdarg.h>

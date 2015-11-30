@@ -1,4 +1,4 @@
-#include "Class.h"
+#include "Coop.h"
 
 void initializeStuff();
 
