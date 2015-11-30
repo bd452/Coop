@@ -5,53 +5,21 @@
 
 int main()
 {
-	int (^checkShit)() = ^int() {
-    		return 69;
-    		printf("%d\n", 69 );
-    	};
-    	int (^checkShit2)() = ^int() {
-    		printf("%d\n", 420 );
-    		return 420;
-    		
-    	};
-	classFunction myFunction = (classFunction){
-		.name = "checkShit",
-		.implementation = checkShit
-	};
-	classFunction myFunction2 = (classFunction){
-		.name = "checkShit2",
-		.implementation = checkShit2
-	};
+	
+	
+	//newClass(myClass, NULL);
+	Class myClass inheritsFrom(NULL);
 
+	func(myClass, checkStuffFunction, {
+		printf("checking to see if this thing works\n");
+		return 420;
+	});
 
-
-	classFunction *emptyArray = (classFunction[2 * sizeof(classFunction)]){ myFunction, myFunction2 };
-
-	// Class myClass = (Class) {
-	// 	.functions = emptyArray,
-	// 	.functionsSize = 0,
-	// 	.propertiesSize = 0,
-
-	// };
-
-	Class myClass = makeClass(NULL, emptyArray, 2, NULL, 0);
-
-	// class_addFunction(&myClass, &myFunction);
-	// class_addFunction(&myClass, &myFunction2);
-
-	printf("lol \n");
+	int returnedValue = (int)$(myClass, checkStuffFunction);
+	printf("%d\n", returnedValue);
     int checkingMoreShit(void* (^f)());
-    printf("lol \n");
-    printf("function %s\n", myClass.functions[0].name );
-    printf("there are %d functions\n", myClass.functionsSize );
-    void *(^asBlock)() = (blockType) (myClass.functions[0]).implementation;
 
-    printf("lol \n");
-    int kek = checkingMoreShit((void* (^)())asBlock);
-    printf("lol \n");
-    printf("%d\n",  kek);
-
-    class_do(&myClass, "checkShit2");
+    
     return 0;
 }
 
@@ -63,16 +31,18 @@ void class_addFunction(Class *class, classFunction *function) {
 
 
 	int oldSize  = class->functionsSize;
-	classFunction *newArray[oldSize+1];// malloc(sizeof(function) * (oldSize + 1));
-	//printf("%s\n", class.functions );
-	int i;
-	for (i=0; i<=oldSize; i++) {
-		//*(&newArray + i) = *(&class.functions + i);
-		newArray[i] = &class->functions[i];
-	}
+	realloc(class->functions, sizeof(classFunction) * (oldSize + 1));
+	// classFunction newArray[sizeof(classFunction) * (oldSize + 1)];// malloc(sizeof(function) * (oldSize + 1));
+	// //printf("%s\n", class.functions );
+	// int i;
+	// for (i=0; i<=oldSize; i++) {
+	// 	//*(&newArray + i) = *(&class.functions + i);
+	// 	newArray[i] = class->functions[i];
+	// }
 	//*(&newArray + oldSize) = &function;
-	newArray[oldSize] = function;
-	class->functions = *newArray;
+	//newArray[oldSize] = *function;
+	class->functions[oldSize] = *function;
+	//class->functions = newArray;
 	class->functionsSize = oldSize + 1;
 
 
@@ -86,7 +56,7 @@ void* class_do(Class *class, char* functionName) {
 	printf("there are %d functions\n", numberOfFunctions);
 	for (int i = 0; i < numberOfFunctions; ++i)
 	{
-		printf("checking function %d\n", i+1);
+		printf("checking function %d: %s\n", i+1, functions[i].name);
 		if (functions[i].name == functionName)
 		{
 			printf("it's function %d\n", i+1);
@@ -98,20 +68,21 @@ void* class_do(Class *class, char* functionName) {
 }
 
 classFunction makeFunction(char* name, void* implementation) {
-	return (classFunction){
-		.name = name,
-		.implementation = implementation
-	};
+
+	classFunction newFunction;
+	newFunction.name = name;
+	newFunction.implementation = implementation;
+	return newFunction;
 }
 
 
-Class makeClass(Class *parent, classFunction *functions, int numberOfFunctions, classProperty* properties, int numberOfProperties) {
+Class makeClass(Class *parent) {
 	return (Class) {
 		.inherits = parent,
-		.functions = functions,
-		.functionsSize = numberOfFunctions,
-		.properties = properties,
-		.propertiesSize = numberOfProperties
+		.functions = malloc(sizeof(classFunction)),
+		.functionsSize = 0,
+		.properties = malloc(sizeof(classProperty)),
+		.propertiesSize = 0
 	};
 }
 

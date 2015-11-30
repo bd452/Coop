@@ -5,6 +5,18 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
+#define STRINGIFY2( x) #x
+#define STRINGIFY(x) STRINGIFY2(x)
+#define PASTE2( a, b) a##b
+#define PASTE( a, b) PASTE2( a, b)
+
+#define makeFunc(aname, aimp) (classFunction) {.name = #aname, .implementation = aimp}
+#define $(classMember, functionName) class_do(&classMember, #functionName)
+//#define ∞(parent)  = makeClass(parent)
+#define inheritsFrom(parent) = makeClass(parent)
+#define newClass(name, parent) Class name = makeClass(parent)
+#define func(classMember, name, imp) classFunction classMember_name = makeFunction(#name, ^imp); class_addFunction(&classMember, &classMember_name);
+#define msgSend(classMember, functionName) class_do(&classMember, #functionName)
 typedef struct classFunction{
     char *name;
     void *implementation;
@@ -27,12 +39,12 @@ typedef struct Class {
 
 typedef void* (^blockType)(void*);
 
-void class_addFunction(Class *class, classFunction *function);
-classFunction functionMake(char* name, void* implementation) ;
+// void class_addFunction(Class *class, classFunction *function);
+// classFunction functionMake(char* name, void* implementation) ;
 
 void class_addFunction(Class *class, classFunction *function);
-classFunction functionMake(char* name, void* implementation) ;
-Class makeClass(Class *parent, classFunction *functions, int numberOfFunctions, classProperty* properties, int numberOfProperties);
+classFunction makeFunction(char* name, void* implementation) ;
+Class makeClass(Class *parent);
 
 void* class_do(Class *class, char* functionName);
 
