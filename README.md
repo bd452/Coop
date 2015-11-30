@@ -21,6 +21,13 @@ To Do
  - Properties
  - Proper Memory Management
  
+Compiling the Sample
+---
+
+  You literally cd to the directory and type `clang Class.c -o Class`
+
 == 
 
 ####You really shouldn't use this.
+
+Seriously. It's awful.
