@@ -1,13 +1,19 @@
 #include "Class.h"
 
-
+void initializeStuff();
 
 
 int main()
 {
+	initializeStuff();
 	
 	
-	//newClass(myClass, NULL);
+
+    
+    return 0;
+}
+
+void initializeStuff() {
 	Class myClass inheritsFrom(NULL);
 
 	func(myClass, checkStuffFunction, {
@@ -15,11 +21,16 @@ int main()
 		return 420;
 	});
 
+	func(myClass, add4, {
+		int *array = (int *)args;
+		int added = array[0] + array [1];
+		printf("The numbers are %d and %d\n", array[0], array[1]);
+		return added;
+	});
+	int stuff[2] = { 4, 5 };
+	int returnedAddedValue = (int)$$(myClass, add4, 2, stuff);
 	int returnedValue = (int)$(myClass, checkStuffFunction);
-	printf("%d\n", returnedValue);
-
-    
-    return 0;
+	printf("%d\n", returnedAddedValue);
 }
 
 void class_addFunction(Class *class, classFunction *function) {
@@ -48,7 +59,9 @@ void class_addFunction(Class *class, classFunction *function) {
 	
 }
 
-void* class_do(Class *class, char* functionName) {
+void* class_do(Class *class, char* functionName, int number, void *passingArgs) {
+
+
 	printf("doing function %s\n", functionName);
 	classFunction* functions = class->functions;
 	int numberOfFunctions = class->functionsSize;
@@ -59,8 +72,8 @@ void* class_do(Class *class, char* functionName) {
 		if (functions[i].name == functionName)
 		{
 			printf("it's function %d\n", i+1);
-			void *(^asBlock)() = (blockType) (functions[i]).implementation;
-			return asBlock();
+			void *(^asBlock)(void*) = (blockType) (functions[i]).implementation;
+			return asBlock(passingArgs);
 		}
 	}
 	return NULL;
