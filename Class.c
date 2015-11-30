@@ -17,7 +17,6 @@ int main()
 
 	int returnedValue = (int)$(myClass, checkStuffFunction);
 	printf("%d\n", returnedValue);
-    int checkingMoreShit(void* (^f)());
 
     
     return 0;
@@ -86,9 +85,7 @@ Class makeClass(Class *parent) {
 	};
 }
 
-int checkingMoreShit(void* (^f)()) {
-	return (int)f();
-}
+
 
 
 /*
