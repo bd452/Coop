@@ -24,6 +24,7 @@ int main()
 	};
 
 
+
 	classFunction *emptyArray = (classFunction[2 * sizeof(classFunction)]){ myFunction, myFunction2 };
 
 	// Class myClass = (Class) {
