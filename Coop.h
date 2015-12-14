@@ -19,8 +19,8 @@
 #define COLOR_RESET   "\x1b[0m"
 
 #define makeFunc(aname, aimp) (classFunction) {.name = #aname, .implementation = aimp}
-#define $(classMember, functionName) class_do((void *)&classMember, #functionName, 0, NULL)
-#define $$(classMember, functionName, argsNumber, args) class_do(&classMember, #functionName, argsNumber, args)
+#define $(classMember, functionName) generic_do((void *)&classMember, #functionName, 0, NULL)
+#define $$(classMember, functionName, argsNumber, args) generic_do(&classMember, #functionName, argsNumber, args)
 //#define ∞(parent)  = makeClass(parent)
 #define inheritsFrom(parent) = makeClass(parent)
 #define newClass(name, parent) Class name = makeClass(parent)
