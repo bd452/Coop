@@ -14,17 +14,19 @@ Working
  - Class creation
  - Function creation
  - Dynamic Function Calling
+ - Function Arguments
 
 To Do
 ---
- - Function Arguments
+ - Class Instances
  - Properties
  - Proper Memory Management
+ - Everything Else
  
 Compiling the Sample
 ---
 
-  You literally cd to the directory and type `clang Class.c -o Class`
+  You literally cd to the directory and type `clang Coop.c -o Coop`
 
 == 
 
