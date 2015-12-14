@@ -27,7 +27,7 @@ Add class method:
  
 Add an instance method:
  
- 			instanceFunc(instance, method name, {
+ 			instanceFunc(class, method name, {
 				(implementation)
  				self is the instance on which the function was called
  				arguments are void pointers in array called "args"
