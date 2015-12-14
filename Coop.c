@@ -8,7 +8,7 @@ void initBaseClasses();
  *	Basic Usage:
  *	
  *		Create Class: 
- *			Classname inheritsFrom(Superclass);
+ *			Classname inheritsFrom(Superclass or NULL);
  *
  *		Add class method:
  *			classFunc(class, method name, {
@@ -19,20 +19,17 @@ void initBaseClasses();
  *			});
  *
  *		Add an instance method:
- *
  *			instanceFunc(class, method name, {
- *
  *				implementation
  *				self is the instance on which function is called
  *				arguments are void pointers in array called "args"
- *
  * 			});
  *
  *		Call a method without arguments:
- *			$(class/instance, method name);
+ *			$(class or instance, method name);
  *
  *		Call a method with arguments:
- *			$$(class/instance, method name, # of args, array of args)
+ *			$$(class or instance, method name, # of args, array of args)
  *
   */
 
